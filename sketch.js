@@ -29,20 +29,20 @@ function draw () {
     background(0)
 
     
-       
-
-    for (let a of attractors) {
-     a.show();
    
-    }
+
 
 
     for (let p of particles){
-    for (let a of attractors) { 
+    for (let b of particles) { 
+        if (p !==b ) {
+
+            p.gravity(b)
+        }
     
      p.update();
      p.show();
-     p.gravity(a)
+   
     }
 
 
