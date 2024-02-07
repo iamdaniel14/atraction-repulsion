@@ -35,22 +35,18 @@ let force =p5.Vector.sub(attractor.pos,this.pos);
 let dSqr=force.magSq();
 
 let d =force.mag()
-dSqr=constrain(dSqr,0,100);
-force.normalize();
-let gravity=2;
-
-if (d<200 && i%2==1 &&i!==j) { 
+dSqr=constrain(dSqr,0.1,200);
+let gravity=4;
 let strength=gravity*(this.mass*attractor.mass)/dSqr;
 force.setMag(strength);
-this.applyForce(force);
-} 
-if (d<100 && i%2==0 &&i!==j) { 
-    let strength=gravity*(this.mass*attractor.mass)/dSqr;
-    force.setMag(strength);
-    force.mult(-1)
-    this.applyForce(force); {
-    }
+
+if (i%1==0) { 
+force.mult(-1);
 }
+this.applyForce(force);
+ 
+
+
 
 }
 

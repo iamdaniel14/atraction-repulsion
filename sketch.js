@@ -12,6 +12,12 @@ function setup () {
  let p=new Particles(x,y,mass);
  particles.push(p);
  }
+
+ for (let i=0; i<20; i++) {
+    let x=random (width);
+    let y=random (height);
+    attractors[i]=new Attractors(x,y)
+ }
 }
 
 function draw () {
@@ -19,12 +25,11 @@ background(0)
    for (let i=0;i<particles.length;i++) { 
     particles[i].update();
     particles[i].show(i);
-for (let j=0;j<particles.length;j++) { 
-    if ( i !==j ) {
- particles[i].gravity( particles[j],i,j)
-        }
-    }
+for (let j=0;j<attractors.length;j++) { 
     
-
+ particles[i].gravity( attractors[j],i)
+ attractors[j].show()  
+    }
+   
 }
 }
