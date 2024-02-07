@@ -19,14 +19,12 @@ background(0)
    for (let i=0;i<particles.length;i++) { 
     particles[i].update();
     particles[i].show(i);
-    for (let j=0;j<particles.length;j++) { 
-    if ( particles[i] !== particles[j] ) {
- particles[i].gravity( particles[j],i)
+for (let j=0;j<particles.length;j++) { 
+    if ( i !==j ) {
+ particles[i].gravity( particles[j],i,j)
         }
-    
-   
     }
-
+    
 
 }
 }

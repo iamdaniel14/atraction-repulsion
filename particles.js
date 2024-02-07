@@ -1,9 +1,10 @@
 class Particles{
  constructor(x,y,m) {
 this.pos =createVector (x,y);
-this.vel=p5.Vector.random2D()
+this.vel=createVector(0,0);
 this.acc=createVector(0,0);
 this.mass =m;
+this.maxSpeed=4;
 this.r=sqrt(this.mass)*10;
 this.col='red';
 this.col1='white';
@@ -21,7 +22,7 @@ noStroke();
 
 if (i%2==1){ 
    fill (this.col1)
-} else {
+} else if (i%2==0) {
     fill (this.col)
 }
 circle (this.pos.x, this.pos.y,this.r*2);
@@ -29,27 +30,33 @@ pop () ;
 
 }
 
-gravity(attractor,i){
+gravity(attractor,i,j){
 let force =p5.Vector.sub(attractor.pos,this.pos);
-let d =force.mag();
-let dSqr=force*force;
-dSqr=constrain(dSqr,0,200);
+let dSqr=force.magSq();
+
+let d =force.mag()
+dSqr=constrain(dSqr,0,100);
 force.normalize();
-let gravity=0.00000069;
+let gravity=2;
 
-
-if(d<100 )  {
+if (d<200 && i%2==1 &&i!==j) { 
 let strength=gravity*(this.mass*attractor.mass)/dSqr;
-force.setMag(strength).mult(-1);
+force.setMag(strength);
 this.applyForce(force);
-} else {
-
+} 
+if (d<100 && i%2==0 &&i!==j) { 
+    let strength=gravity*(this.mass*attractor.mass)/dSqr;
+    force.setMag(strength);
+    force.mult(-1)
+    this.applyForce(force); {
+    }
 }
+
 }
 
 update () {
 this.vel.add(this.acc);
-this.vel.limit (1);
+this.vel.limit (this.maxSpeed);
 this.pos.add (this.vel);
 this.acc.set(0);
 this.edges();
